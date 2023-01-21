@@ -52,8 +52,8 @@ const Navbar = () => {
         <Menu
           theme='dark'
           mode="horizontal"
+          defaultSelectedKeys={(location.pathname === RouteNames.HOME) ? (!logined ? [RouteNames.LOGIN] : [RouteNames.TABLE]) : [location.pathname]}
           items={logined ? privateMenuItems : publicMenuItems}
-          defaultSelectedKeys={((location.pathname === RouteNames.HOME) ? (!logined ? [RouteNames.LOGIN] : [RouteNames.TABLE]) : location.pathname) as string[]}
         />
       </Header>
     </Layout>
