@@ -1,4 +1,6 @@
+import { useEffect, useState } from "react";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { useAppSelector } from '../hooks/redux'
 import App from "../App";
 import LoginContainer from "../pages/auth/Login";
 import TableContainer from "../pages/dashboard/Table";
@@ -11,7 +13,7 @@ export enum RouteNames {
   ANYPATH = '*'
 }
 
-const router = createBrowserRouter([
+const publicRouter = createBrowserRouter([
   {
     path: RouteNames.HOME,
     element: <App />,
@@ -25,6 +27,20 @@ const router = createBrowserRouter([
         path: RouteNames.LOGIN,
         element: <LoginContainer />
       },
+    ],
+  }
+]);
+
+const privateRouter = createBrowserRouter([
+  {
+    path: RouteNames.HOME,
+    element: <App />,
+    errorElement: <ErrorContainer />,
+    children: [
+      {
+        index: true,
+        element: <TableContainer />
+      },
       {
         path: RouteNames.TABLE,
         element: <TableContainer />
@@ -34,8 +50,19 @@ const router = createBrowserRouter([
 ]);
   
 const AppRouter = () => {
+  const logined = useAppSelector(state => state.authReducer.isAuth);
+  const [isLogin, setIsLogin] = useState(logined);
+console.log('comp', logined)
+  useEffect(() => {
+    console.log('effect', logined)
+    setIsLogin(logined);
+  }, [logined]);
+
   return (
-    <RouterProvider router={router} />
+    <>
+    {console.log('render', logined)}
+    <RouterProvider router={isLogin ? privateRouter : publicRouter} />
+    </>
   );
 }
  
