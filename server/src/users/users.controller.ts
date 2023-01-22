@@ -25,7 +25,7 @@ export class UsersController {
 
     @ApiOperation({summary: 'Featch all users'})
     @ApiResponse({status: 200, type: [User]})
-    @Roles("USER")
+    @Roles("ADMIN")
     @UseGuards(RolesGuard)
     @Get()
     getAll() {
@@ -43,7 +43,7 @@ export class UsersController {
 
     @ApiOperation({summary: 'User ban'})
     @ApiResponse({status: 200})
-    @Roles("USER")
+    @Roles("ADMIN")
     @UseGuards(RolesGuard)
     @Post('/ban')
     ban(@Body() dto: BanUserDto) {
