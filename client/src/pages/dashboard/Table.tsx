@@ -1,6 +1,6 @@
 
 import React, { useEffect, useState, useRef, useTransition } from "react";
-import { Button, Slider, Layout, Row } from 'antd';
+import { Button, Layout, Row } from 'antd';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { postAPI } from "../../services/PostService";
 import PostItem from "./PostItem";
@@ -23,8 +23,6 @@ const Table = () => {
   const [createPost] = postAPI.useCreatePostMutation();
   const [updatePost] = postAPI.useUpdatePostMutation();
   const [deletePost] = postAPI.useDeletePostMutation();
-
-  // useEffect(() => {setTimeout(() => { setLimit(3) }, 2000)}, []);
 
   const handleCreate = async (newPost: IPost) => {
     await createPost({ title: newPost.title, content: newPost.content } as IPost);  
@@ -49,7 +47,6 @@ const Table = () => {
         <div className="post__list">
           <Button type="primary" onClick={() => refetch()}>Refetch</Button>
           <PostModal createNewPost={handleCreate}/>
-          {/* <Slider min={1} max={100} defaultValue={limit} onChange={setLimit}/> */}
           <h1 >Posts list</h1>
           {isLoading && <h1>Loading...</h1>}
           {error && <h1>Error</h1>}
