@@ -7,7 +7,8 @@ import {ValidationPipe} from "./pipes/validation.pipe";
 
 async function start() {
     const PORT = process.env.PORT || 5002;
-    const app = await NestFactory.create(AppModule)
+    const app = await NestFactory.create(AppModule);
+    app.enableCors();
 
     const config = new DocumentBuilder()
         .setTitle('Fullstack login Nest React')
