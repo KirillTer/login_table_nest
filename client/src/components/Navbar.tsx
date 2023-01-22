@@ -11,17 +11,14 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const logined = useAppSelector(state => state.authReducer.isAuth);
-  
-  const publicMenuItems = [
+
+  const menuItems = [
     {
       key: "/login",
       'data-testid': "posts-link",
       onClick: () => navigate(RouteNames.LOGIN),
       label: 'Login'
     },
-  ];
-
-  const privateMenuItems = [
     {
       key: "/table",
       'data-testid': "users-link",
@@ -52,8 +49,8 @@ const Navbar = () => {
         <Menu
           theme='dark'
           mode="horizontal"
-          defaultSelectedKeys={(location.pathname === RouteNames.HOME) ? (!logined ? [RouteNames.LOGIN] : [RouteNames.TABLE]) : [location.pathname]}
-          items={logined ? privateMenuItems : publicMenuItems}
+          defaultSelectedKeys={[location.pathname]}
+          items={menuItems}
         />
       </Header>
     </Layout>

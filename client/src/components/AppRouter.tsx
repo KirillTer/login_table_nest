@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { createBrowserRouter, Navigate, RouterProvider, useLocation } from "react-router-dom";
-import { useAppSelector } from '../hooks/redux'
 import App from "../App";
 import LoginContainer from "../pages/auth/Login";
 import TableContainer from "../pages/dashboard/Table";
@@ -14,13 +13,7 @@ export enum RouteNames {
 }
   
 const AppRouter = () => {
-  const logined = useAppSelector(state => state.authReducer.isAuth);
 
-console.log('comp', logined)
-
-  const loader = () => {
-    return logined;
-  }
 
   const router = createBrowserRouter([
     {
@@ -39,17 +32,13 @@ console.log('comp', logined)
         {
           path: RouteNames.TABLE,
           element: <TableContainer />,
-          loader: loader,
         },
       ],
     }
   ]);
 
   return (
-    <>
-    {console.log('render', logined)}
     <RouterProvider router={router} />
-    </>
   );
 }
  

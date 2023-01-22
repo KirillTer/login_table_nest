@@ -3,19 +3,15 @@ import { IPost } from "../models/IPost";
 
 export const postAPI = createApi({
   reducerPath: "postAPI",
-  // baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:3001" }),
-  baseQuery: fetchBaseQuery({
-    baseUrl: "https://jsonplaceholder.typicode.com",
-  }),
+  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:5001" }),
+  // baseQuery: fetchBaseQuery({
+  //   baseUrl: "https://jsonplaceholder.typicode.com",
+  // }),
   tagTypes: ["Post"],
   endpoints: (build) => ({
-    fetchAllPosts: build.query<IPost[], any>({
-      query: (reqParams: any = {limit: 10, page: 1}) => ({
+    fetchAllPosts: build.query({
+      query: () => ({
         url: `/posts`,
-        params: {
-          _limit: reqParams.limit,
-          _page: reqParams.page,
-        },
       }),
       providesTags: (result) => ["Post"],
     }),
