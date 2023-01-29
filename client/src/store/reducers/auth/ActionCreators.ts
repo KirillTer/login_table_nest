@@ -1,7 +1,22 @@
 import axios from 'axios';
 // import { AppDispatch } from '../store';
 import { IUser } from '../../../models/IUser';
+// import { IAuthResponse } from '../../../models/IAuthResponse';
 import { createAsyncThunk } from '@reduxjs/toolkit';
+
+export const API_URL = 'https://localhost:5001/auth/login'
+
+const $api = axios.create({
+  withCredentials: true,
+  baseURL: API_URL
+})
+
+$api.interceptors.request.use((config) => {
+  config.headers.Authorization = `Bearer ${localStorage.getItem('token')}`
+  return config;
+})
+
+export default $api;
 
 // common redux action creator
 // export const authUser = () => async (dispatch: AppDispatch) => {
@@ -17,17 +32,16 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 // redux toolkit action creator
 export const authUser = createAsyncThunk(
   'user/authUser',
-  async (reqParams: any = {username: '', password: ''}, thunkAPI) => {
+  async (reqParams: any = {email: '', password: ''}, thunkAPI) => {
     try {
       const response = await axios.post<IUser[]>(
-        'https://jsonplaceholder.typicode.com/users', {
-          params: {
-            username: reqParams.username,
-            password: reqParams.password
-          }
+        'http://localhost:5001/auth/login', {
+          email: reqParams.email,
+          password: reqParams.password
         }
       );
-      return response.data;
+      console.log('resp', response);
+      return response;
     } catch (e: any) {
       return thunkAPI.rejectWithValue(e.message);
     }

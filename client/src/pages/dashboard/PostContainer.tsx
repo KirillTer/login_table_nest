@@ -10,7 +10,7 @@ import { IPost } from "../../models/IPost";
 
 const Table = () => {
 
-  const [_, startTransition] = useTransition();
+  // const [_, startTransition] = useTransition();
   // const [selectedSortedPosts, setSelectedSortedPosts] = useState([]);
   
   const {

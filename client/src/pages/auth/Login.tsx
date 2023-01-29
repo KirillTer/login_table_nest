@@ -9,8 +9,8 @@ const Login = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const onFinish = () => {
-    dispatch(authUser({username: '', password: ''}));
+  const onFinish = (values: any) => {
+    dispatch(authUser({email: values.email, password: values.password}));
     navigate(RouteNames.TABLE);
   }
 
@@ -31,9 +31,9 @@ const Login = () => {
           autoComplete="off"
         >
           <Form.Item
-            label="Username"
-            name="username"
-            rules={[{ required: true, message: 'Please input your username!' }]}
+            label="Email"
+            name="email"
+            rules={[{ required: true, message: 'Please input your email!' }]}
           >
             <Input />
           </Form.Item>
