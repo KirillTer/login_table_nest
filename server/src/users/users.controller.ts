@@ -25,8 +25,8 @@ export class UsersController {
 
     @ApiOperation({summary: 'Featch all users'})
     @ApiResponse({status: 200, type: [User]})
-    @Roles("ADMIN")
-    @UseGuards(RolesGuard)
+    // @Roles("ADMIN")
+    // @UseGuards(RolesGuard)
     @Get()
     getAll() {
         return this.usersService.getAllUsers();
@@ -37,7 +37,7 @@ export class UsersController {
     @Roles("ADMIN")
     @UseGuards(RolesGuard)
     @Post('/role')
-    addRole(@Body() dto: AddRoleDto) {
+    addRole(@Body() dto: AddRoleDto): Promise<AddRoleDto> {
         return this.usersService.addRole(dto);
     }
 
